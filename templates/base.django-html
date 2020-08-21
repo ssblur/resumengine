@@ -1,0 +1,15 @@
+{% load bootstrap4 %}
+<!doctype html5>
+<html>
+    <head>
+        {% bootstrap_css %}
+        {% bootstrap_javascript true %}
+        <title>{% block title %}ResumEngine{% endblock %}</title>
+    </head>
+    <body>
+        <form action='{% url 'portfolio-search'%}' method='GET' class='form'>
+            {% bootstrap_form form %}
+            {}
+        </form>
+    </body>
+</html>

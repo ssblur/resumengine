@@ -1,0 +1,4 @@
+django
+Pillow
+python-dotenv
+django-bootstrap4
