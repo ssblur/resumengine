@@ -8,9 +8,11 @@
         <title>{% block title %}ResumEngine{% endblock %}</title>
     </head>
     <body>
-        <form action='{% url 'portfolio-search'%}' method='GET' class='form'>
-            {% bootstrap_form search %}
-        </form>
+        {% if search %}
+            <form action='{% url 'portfolio-search'%}' method='GET' class='form'>
+                {% bootstrap_form search %}
+            </form>
+        {% endif %}
         <div class='container-fluid'>
             {% block content %}{% endblock %}
         </div>

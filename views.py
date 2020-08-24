@@ -89,11 +89,11 @@ def portfolio(req, id):
             {
                 'portfolio': portfolio,
                 'types': ProjectType.choices,
-                'search': SearchForm
             },
             req
         ))
-    except Exception:
+    except Exception as e:
+        print(e)
         return HttpResponse(no_portfolio_template.render(
             {
                 'id': id,

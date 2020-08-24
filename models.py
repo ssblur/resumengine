@@ -27,7 +27,8 @@ class Document(models.Model):
     icon = models.ImageField(upload_to = 'icons', blank = True, null = True)
     last_updated = models.DateField(auto_now = True)
     created = models.DateField(auto_now_add = True)
-    since = models.DateField()
+    since = models.DateField(blank = True, null = True)
+    until = models.DateField(blank = True, null = True)
     visibility = models.IntegerField(choices = Visibility.choices)
     tags = models.ManyToManyField(Tag, blank = True)
     def __str__(self):

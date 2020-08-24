@@ -5,10 +5,13 @@
 {% endblock %}
 
 {% block content  %}
+    <br>
+    
     <div class='container text-center'>
         <h2>{{ portfolio.recipient }}</h2>
         <p>{{ portfolio.description }}</p>
     </div>
+
     {% if portfolio.education|length >= 1 %}
         <div class='container'>
             <h2>Education</h2>
@@ -17,6 +20,7 @@
             {% endfor %}
         </div>
     {% endif %}
+
     {% if portfolio.experience|length >= 1 %}
         <div class='container'>
             <h2>Experience</h2>
@@ -25,6 +29,7 @@
             {% endfor %}
         </div>
     {% endif %}
+
     {% if portfolio.project|length >= 1 %}
         <div class='container'>
             <h2>Projects</h2>
@@ -33,6 +38,7 @@
             {% endfor %}
         </div>
     {% endif %}
+
     {% if portfolio.award|length >= 1 %}
         <div class='container'>
             <h2>Awards</h2>
