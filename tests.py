@@ -3,6 +3,7 @@ from .models import Document, Tag
 
 class SearchTestCase(TestCase):
     def setUp(self):
+        'Sets up data for search tests.'
         self.doc1 = Document.objects.create(document_name = 'orange', document_type = 0, contents = 'grape', visibility = 0)
         tag1 = Tag.objects.create(tag_name = 'orange')
         self.doc2 = Document.objects.create(document_name = 'grape', document_type = 0, contents = 'melon', visibility = 0)
@@ -10,6 +11,7 @@ class SearchTestCase(TestCase):
         self.doc3 = Document.objects.create(document_name = 'grape', document_type = 0, contents = 'melon', visibility = 0)
 
     def test_search(self):
+        'Tests a variety of search terms and verifies the correct documents do or do not appear.'
         q1 = Document.search('orange')
         assert self.doc1 in q1
         assert self.doc2 in q1

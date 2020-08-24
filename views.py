@@ -12,9 +12,7 @@ def index(req):
 
 search_template = loader.get_template('search.django-html')
 def search(req):
-    '''
-    A handler for searching based on tags, description, and name.
-    '''
+    'A handler for searching based on tags, description, and name.
     if req.method == 'GET':
         form = SearchForm(req.GET)
     elif req.method == 'POST':
@@ -40,6 +38,7 @@ no_document_template = loader.get_template('solo-documents-404.django-html')
 def document(req, id):
     '''
     Renders a single document onto its own page.
+    @param id The document id to look up.
     '''
     try:
         doc = Document.objects.get(id = int(id))
@@ -75,9 +74,7 @@ def tag(req, name):
 portfolio_template = loader.get_template('portfolio.django-html')
 no_portfolio_template = loader.get_template('portfolio-404.django-html')
 def portfolio(req, id):
-    '''
-    Renders a portfolio and its component documents.
-    '''
+    'Renders a portfolio and its component documents.'
     try:
         portfolio = Portfolio.objects.get(id = int(id))
         return HttpResponse(portfolio_template.render(
