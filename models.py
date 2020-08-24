@@ -1,4 +1,5 @@
 from django.db import models
+from django.template import loader
 
 Visibility = models.IntegerChoices('Visibility', 'PUBLIC PROTECTED PRIVATE')
 ProjectType = models.IntegerChoices('ProjectType', 'PROJECT EDUCATION AWARD EXPERIENCE')
@@ -15,6 +16,7 @@ class Tag(models.Model):
     def __str__(self):
         return self.tag_name
 
+document_template = loader.get_template('document.django-html')
 class Document(models.Model):
     '''
     A representation of input Documents.
@@ -23,11 +25,12 @@ class Document(models.Model):
     document_name = models.CharField(max_length = 128)
     document_type = models.IntegerField(choices = ProjectType.choices)
     contents = models.TextField()
-    icon = models.ImageField(upload_to = 'icons', blank=True, null=True)
-    last_updated = models.TimeField(auto_now = True)
-    created = models.TimeField(auto_now_add = True)
+    icon = models.ImageField(upload_to = 'icons', blank = True, null = True)
+    last_updated = models.DateField(auto_now = True)
+    created = models.DateField(auto_now_add = True)
+    since = models.DateField()
     visibility = models.IntegerField(choices = Visibility.choices)
-    tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag, blank = True, null = True)
     def __str__(self):
         return self.document_name
 
@@ -38,6 +41,6 @@ class Portfolio(models.Model):
     recipient = models.TextField()
     description = models.TextField()
     icon = models.ImageField(upload_to = 'icons', blank=True, null=True)
-    documents = models.ManyToManyField(Documents)
+    documents = models.ManyToManyField(Document)
     def __str__(self):
         return 'Document for ' + str(self.recipient)

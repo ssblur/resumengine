@@ -1,1 +1,20 @@
 {% load bootstrap4 %}
+{% load static %}
+{% load markdownify %}
+
+<div class='card'>
+    <div class='card-body d-flex align-items-center'>
+        {% if document.icon %}
+            <img class='float-left h-auto' style='width: 10%' src='{% get_media_prefix %}{{ document.icon }}'>
+        {% endif %}
+        <div class='float-left ml-3'>
+            <h1 class='card-title'>{{ document.document_name }}</h1>
+            <p>{{ document.contents | markdownify }}</p>
+            {% for tag in document.tags.all %}
+                <span class='badge badge-secondary'>
+                    <a href='{% url 'portfolio-tag' tag.tag_name %}' class='text-white'>{{ tag }}</a>
+                </span>
+            {% endfor %}
+        </div>
+    </div>
+</div>

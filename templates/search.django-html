@@ -1,0 +1,12 @@
+{% extends 'base.django-html' %}
+
+{% block title %}
+    Search for '{{ q }}'
+{% endblock %}
+
+{% block content  %}
+    <h2>Search for '{{ q }}'</h2>
+    {% for document in documents %}
+        {% include "document.django-html" %}
+    {% endfor %}
+{% endblock %}

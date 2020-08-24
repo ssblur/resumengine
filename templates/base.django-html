@@ -8,8 +8,10 @@
     </head>
     <body>
         <form action='{% url 'portfolio-search'%}' method='GET' class='form'>
-            {% bootstrap_form form %}
-            {}
+            {% bootstrap_form search %}
         </form>
+        <div class='container-fluid'>
+            {% block content %}{% endblock %}
+        </div>
     </body>
 </html>

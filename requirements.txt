@@ -2,3 +2,4 @@ django
 Pillow
 python-dotenv
 django-bootstrap4
+django-markdownify

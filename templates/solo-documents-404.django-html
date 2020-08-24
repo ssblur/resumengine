@@ -1,0 +1,12 @@
+{% extends 'base.django-html' %}
+
+{% block content  %}
+    <div class='card'>
+        <div class='card-body'>
+            <div class='float-left ml-3'>
+                <h1 class='card-title'>No Document Found</h1>
+                <p>No document was found with the ID {{ id }}!</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

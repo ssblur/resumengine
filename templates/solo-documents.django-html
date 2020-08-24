@@ -1,0 +1,5 @@
+{% extends 'base.django-html' %}
+
+{% block content  %}
+    {% include "document.django-html" %}
+{% endblock %}

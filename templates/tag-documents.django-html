@@ -1,0 +1,12 @@
+{% extends 'base.django-html' %}
+
+{% block title %}
+    Tagged '{{ tag }}'
+{% endblock %}
+
+{% block content  %}
+    <h2>Tagged '{{ tag }}'</h2>
+    {% for document in documents %}
+        {% include "document.django-html" %}
+    {% endfor %}
+{% endblock %}
