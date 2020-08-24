@@ -17,7 +17,7 @@ Installation is relatively simple, however this application is not currently pos
  - In the root urls.py, add a static route to media/icons (such as `urlpatterns += static(join(settings.MEDIA_URL, 'icons'), document_root=join(settings.MEDIA_ROOT, 'icons'))`).
  - Run the manage.py `migrate` task.
  - (Optional, but recommended) Test using manage.py's `runserver` task.
- - Run your server using your preferred menu.
+ - Run your server using your preferred method.
 
 Apologies for the somewhat complex setup, this project was created, for the most part, in a few hours.
 
