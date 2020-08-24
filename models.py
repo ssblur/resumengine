@@ -16,7 +16,6 @@ class Tag(models.Model):
     def __str__(self):
         return self.tag_name
 
-document_template = loader.get_template('document.django-html')
 class Document(models.Model):
     '''
     A representation of input Documents.
