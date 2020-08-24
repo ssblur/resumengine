@@ -7,7 +7,7 @@
         {% bootstrap_javascript true %}
         <title>{% block title %}ResumEngine{% endblock %}</title>
     </head>
-    <body>
+    <body class='p-3'>
         {% if search %}
             <form action='{% url 'portfolio-search'%}' method='GET' class='form'>
                 {% bootstrap_form search %}
