@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
-from django.db.models import Q
 
 from .forms import SearchForm
 from .models import Document, Tag, Portfolio, ProjectType
@@ -24,11 +23,7 @@ def search(req):
         form = SearchForm()
     if form.is_valid():
         q = form.cleaned_data['q']
-        docs = Document.objects.filter(
-            Q(document_name__icontains = q) |
-            Q(contents__icontains = q) |
-            Q(tags__tag_name__icontains = q)
-        ).distinct()
+        docs = Document.search(q)
         return HttpResponse(search_template.render(
             {
                 'documents': docs,

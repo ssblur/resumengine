@@ -1,5 +1,6 @@
 from django.db import models
 from django.template import loader
+from django.db.models import Q
 
 # Document visibility enumeration.
 Visibility = models.IntegerChoices('Visibility', 'PUBLIC PROTECTED PRIVATE')
@@ -31,6 +32,12 @@ class Document(models.Model):
     tags = models.ManyToManyField(Tag, blank = True)
     def __str__(self):
         return self.document_name
+    def search(q):
+        return Document.objects.filter(
+            Q(document_name__icontains = q) |
+            Q(contents__icontains = q) |
+            Q(tags__tag_name__icontains = q)
+        ).distinct()
 
 class Portfolio(models.Model):
     'A representation of a portfolio that can be sent to individual users.'
