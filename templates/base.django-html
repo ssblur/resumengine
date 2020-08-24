@@ -1,8 +1,9 @@
 {% load bootstrap4 %}
+{% load static %}
 <!doctype html5>
 <html>
     <head>
-        {% bootstrap_css %}
+        <link rel='stylesheet' href='{% static 'bootstrap.css' %}'>
         {% bootstrap_javascript true %}
         <title>{% block title %}ResumEngine{% endblock %}</title>
     </head>
