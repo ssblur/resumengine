@@ -12,7 +12,7 @@ def index(req):
 
 search_template = loader.get_template('search.django-html')
 def search(req):
-    'A handler for searching based on tags, description, and name.
+    'A handler for searching based on tags, description, and name.'
     if req.method == 'GET':
         form = SearchForm(req.GET)
     elif req.method == 'POST':

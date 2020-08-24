@@ -14,7 +14,8 @@ Installation is relatively simple, however this application is not currently pos
  - Use pip to install all the requirements for this project (`python -m pip install -r requirements.txt`).
  - In settings.py, add the following to the default INSTALLED_APPS: `'portfolio', 'bootstrap4', 'markdownify'`.
  - Configure your MEDIA_URL and MEDIA_ROOT in settings.py.
- - In the root urls.py, add a static route to media/icons (such as `urlpatterns += static(join(settings.MEDIA_URL, 'icons'), document_root=join(settings.MEDIA_ROOT, 'icons'))`).
+ - (Optional, not recommended) In the root urls.py, add a static route to media/icons (such as `urlpatterns += static(join(settings.MEDIA_URL, 'icons'), document_root=join(settings.MEDIA_ROOT, 'icons'))`).
+   - I would suggest this only for development. In production, you should probably be using a static route on whatever server software you use.
  - Run the manage.py `migrate` task.
  - (Optional, but recommended) Test using manage.py's `runserver` task.
  - Run your server using your preferred method.
