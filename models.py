@@ -42,4 +42,12 @@ class Portfolio(models.Model):
     icon = models.ImageField(upload_to = 'icons', blank=True, null=True)
     documents = models.ManyToManyField(Document)
     def __str__(self):
-        return 'Document for ' + str(self.recipient)
+        return 'Portfolio for ' + str(self.recipient)
+    def education(self):
+        return self.documents.filter(document_type = ProjectType.EDUCATION)
+    def project(self):
+        return self.documents.filter(document_type = ProjectType.PROJECT)
+    def award(self):
+        return self.documents.filter(document_type = ProjectType.AWARD)
+    def experience(self):
+        return self.documents.filter(document_type = ProjectType.EXPERIENCE)

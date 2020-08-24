@@ -4,7 +4,7 @@ from django.template import loader
 from django.db.models import Q
 
 from .forms import SearchForm
-from .models import Document, Tag
+from .models import Document, Tag, Portfolio, ProjectType
 from .forms import SearchForm
 
 def index(req):
@@ -76,3 +76,28 @@ def tag(req, name):
         },
         req
     ))
+
+portfolio_template = loader.get_template('portfolio.django-html')
+no_portfolio_template = loader.get_template('portfolio-404.django-html')
+def portfolio(req, id):
+    '''
+    Renders a portfolio and its component documents.
+    '''
+    try:
+        portfolio = Portfolio.objects.get(id = int(id))
+        return HttpResponse(portfolio_template.render(
+            {
+                'portfolio': portfolio,
+                'types': ProjectType.choices,
+                'search': SearchForm
+            },
+            req
+        ))
+    except Exception:
+        return HttpResponse(no_portfolio_template.render(
+            {
+                'id': id,
+                'search': SearchForm
+            },
+            req
+        ))

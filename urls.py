@@ -6,5 +6,6 @@ urlpatterns = [
     path('', views.index, name='portfolio-index'),
     path('search', views.search, name='portfolio-search'),
     path('document/<id>', views.document, name='portfolio-document'),
-    path('tag/<name>', views.tag, name='portfolio-tag')
+    path('tag/<name>', views.tag, name='portfolio-tag'),
+    path('portfolio/<id>', views.portfolio, name='portfolio-portfolio'),
 ]

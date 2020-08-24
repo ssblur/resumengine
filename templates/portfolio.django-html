@@ -1,0 +1,44 @@
+{% extends 'base.django-html' %}
+
+{% block title %}
+    {{ portfolio.recipient }} - Portfolio
+{% endblock %}
+
+{% block content  %}
+    <div class='container text-center'>
+        <h2>{{ portfolio.recipient }}</h2>
+        <p>{{ portfolio.description }}</p>
+    </div>
+    {% if portfolio.education|length >= 1 %}
+        <div class='container'>
+            <h2>Education</h2>
+            {% for document in portfolio.education %}
+                {% include "document.django-html" %}
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% if portfolio.experience|length >= 1 %}
+        <div class='container'>
+            <h2>Experience</h2>
+            {% for document in portfolio.experience %}
+                {% include "document.django-html" %}
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% if portfolio.project|length >= 1 %}
+        <div class='container'>
+            <h2>Projects</h2>
+            {% for document in portfolio.project %}
+                {% include "document.django-html" %}
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% if portfolio.award|length >= 1 %}
+        <div class='container'>
+            <h2>Awards</h2>
+            {% for document in portfolio.award %}
+                {% include "document.django-html" %}
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}

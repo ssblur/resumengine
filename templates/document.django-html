@@ -2,7 +2,7 @@
 {% load static %}
 {% load markdownify %}
 
-<div class='card'>
+<div class='card c-6'>
     <div class='card-body d-flex align-items-center'>
         {% if document.icon %}
             <img class='float-left h-auto' style='width: 10%' src='{% get_media_prefix %}{{ document.icon }}'>
