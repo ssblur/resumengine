@@ -1,0 +1,12 @@
+{% extends 'base.django-html' %}
+
+{% block title %}
+    Portfolio
+{% endblock %}
+
+{% block content  %}
+    <h2>Most Recent Additions</h2>
+    {% for document in documents %}
+        {% include "document.django-html" %}
+    {% endfor %}
+{% endblock %}

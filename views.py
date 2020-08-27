@@ -6,9 +6,19 @@ from .forms import SearchForm
 from .models import Document, Tag, Portfolio, ProjectType
 from .forms import SearchForm
 
+index_template = loader.get_template('index.django-html')
 def index(req):
-    'The index page for portfolios.'
-    return HttpResponse('OK')
+    '''
+    The index page for portfolios.
+    This indexes the most recent 20 documents, most recent first.
+    '''
+    docs = Document.objects.order_by('last_updated')[:20]
+    return HttpResponse(index_template.render(
+        {
+            'documents': docs
+        },
+        req
+    ))
 
 search_template = loader.get_template('search.django-html')
 def search(req):
