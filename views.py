@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.template import loader
 
 from .forms import SearchForm
-from .models import Document, Tag, Portfolio, ProjectType
+from .models import Document, Tag, Portfolio, ProjectType, PortfolioAlias
 from .forms import SearchForm
 
 index_template = loader.get_template('index.django-html')
@@ -86,7 +86,7 @@ no_portfolio_template = loader.get_template('portfolio-404.django-html')
 def portfolio(req, id):
     'Renders a portfolio and its component documents.'
     try:
-        portfolio = Portfolio.objects.get(id = int(id))
+        portfolio = Portfolio.objects.get(uuid = id)
         return HttpResponse(portfolio_template.render(
             {
                 'portfolio': portfolio,
@@ -94,12 +94,22 @@ def portfolio(req, id):
             },
             req
         ))
-    except Exception as e:
-        print(e)
-        return HttpResponse(no_portfolio_template.render(
-            {
-                'id': id,
-                'search': SearchForm
-            },
-            req
-        ))
+    except Exception:
+        try:
+            alias = PortfolioAlias.objects.get(name = id)
+            portfolio = alias.target
+            return HttpResponse(portfolio_template.render(
+                {
+                    'portfolio': portfolio,
+                    'types': ProjectType.choices,
+                },
+                req
+            ))
+        except Exception as e:
+            return HttpResponse(no_portfolio_template.render(
+                {
+                    'id': id,
+                    'search': SearchForm
+                },
+                req
+            ))

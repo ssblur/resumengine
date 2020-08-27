@@ -9,7 +9,7 @@
         <div class='card-body'>
             <div class='float-left ml-3'>
                 <h1 class='card-title'>No Portfolio Found</h1>
-                <p>No portfolio was found with the ID {{ id }}!</p>
+                <p>No portfolio was found with the UUID or Alias {{ id }}!</p>
             </div>
         </div>
     </div>

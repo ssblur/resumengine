@@ -1,6 +1,7 @@
 from django.db import models
 from django.template import loader
 from django.db.models import Q
+from uuid import uuid1
 
 # Document visibility enumeration.
 Visibility = models.IntegerChoices('Visibility', 'PUBLIC PROTECTED PRIVATE')
@@ -45,6 +46,7 @@ class Portfolio(models.Model):
     description = models.TextField()
     icon = models.ImageField(upload_to = 'icons', blank=True, null=True)
     documents = models.ManyToManyField(Document)
+    uuid = models.UUIDField(unique = True, default = uuid1, editable = False)
     def __str__(self):
         return 'Portfolio for ' + str(self.recipient)
     def education(self):
@@ -55,3 +57,13 @@ class Portfolio(models.Model):
         return self.documents.filter(document_type = ProjectType.AWARD)
     def experience(self):
         return self.documents.filter(document_type = ProjectType.EXPERIENCE)
+
+class PortfolioAlias(models.Model):
+    '''
+    Aliases for portfolios.
+    Useful as backwards compatibility for the old portfolio format, and for named URLs.
+    '''
+    name = models.CharField(max_length = 32, unique = True)
+    target = models.ForeignKey(Portfolio, on_delete = models.CASCADE)
+    def __str__(self):
+        return 'Alias {} for {}'.format(self.name, self.target)
