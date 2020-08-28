@@ -19,7 +19,9 @@
             <div class='container'>
                 <h2 class='text-center w-100'>{{ category.name }}</h2>
                 {% for document in documents %}
-                    {% include "document.django-html" %}
+                    {% if document.visibility != 3 or perms.portfolio.can_view_document %}
+                        {% include 'document.django-html' %}
+                    {% endif %}
                 {% endfor %}
             </div>
         {% endif %}

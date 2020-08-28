@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.template import loader
 
 from .forms import SearchForm
-from .models import Document, Tag, Portfolio, PortfolioAlias
+from .models import Document, Tag, Portfolio, PortfolioAlias, Visibility
 from .forms import SearchForm
 
 index_template = loader.get_template('index.django-html')
@@ -12,10 +12,11 @@ def index(req):
     The index page for portfolios.
     This indexes the most recent 20 documents, most recent first.
     '''
-    docs = Document.objects.order_by('last_updated')[:20]
+    docs = Document.objects.filter(visibility = Visibility.PUBLIC).order_by('last_updated')[:20]
     return HttpResponse(index_template.render(
         {
-            'documents': docs
+            'documents': docs,
+            'search': SearchForm
         },
         req
     ))
@@ -52,13 +53,22 @@ def document(req, id):
     '''
     try:
         doc = Document.objects.get(id = int(id))
-        return HttpResponse(document_template.render(
-            {
-                'document': doc,
-                'search': SearchForm
-            },
-            req
-        ))
+        if doc.visibility == Visibility.PRIVATE and not req.user.has_perm('portfolio.can_view_document'):
+            return HttpResponse(no_document_template.render(
+                {
+                    'id': id,
+                    'search': SearchForm
+                },
+                req
+            ))
+        else:
+            return HttpResponse(document_template.render(
+                {
+                    'document': doc,
+                    'search': SearchForm
+                },
+                req
+            ))
     except Exception:
         return HttpResponse(no_document_template.render(
             {

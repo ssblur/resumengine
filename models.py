@@ -44,6 +44,8 @@ class Document(models.Model):
             Q(document_name__icontains = q) |
             Q(contents__icontains = q) |
             Q(tags__tag_name__icontains = q)
+        ).filter(
+            visibility = Visibility.PUBLIC
         ).distinct()
 
 class Portfolio(models.Model):
@@ -57,10 +59,11 @@ class Portfolio(models.Model):
         return 'Portfolio for ' + str(self.recipient)
     def categories(self):
         cats = DocumentCategory.objects.all()
-        docs = []
+        docs = self.documents
+        results = []
         for category in cats:
-            docs.append(Document.objects.filter(document_type = category))
-        return zip(cats, docs)
+            results.append(docs.filter(document_type = category))
+        return zip(cats, results)
 
 class PortfolioAlias(models.Model):
     '''
