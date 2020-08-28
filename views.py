@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.template import loader
 
 from .forms import SearchForm
-from .models import Document, Tag, Portfolio, ProjectType, PortfolioAlias
+from .models import Document, Tag, Portfolio, PortfolioAlias
 from .forms import SearchForm
 
 index_template = loader.get_template('index.django-html')
@@ -90,7 +90,6 @@ def portfolio(req, id):
         return HttpResponse(portfolio_template.render(
             {
                 'portfolio': portfolio,
-                'types': ProjectType.choices,
             },
             req
         ))
@@ -101,7 +100,6 @@ def portfolio(req, id):
             return HttpResponse(portfolio_template.render(
                 {
                     'portfolio': portfolio,
-                    'types': ProjectType.choices,
                 },
                 req
             ))

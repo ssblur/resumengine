@@ -14,40 +14,14 @@
         <br>
         <p>{{ portfolio.description | markdownify }}</p>
     </div>
-
-    {% if portfolio.education|length >= 1 %}
-        <div class='container'>
-            <h2 class='text-center w-100'>Education</h2>
-            {% for document in portfolio.education %}
-                {% include "document.django-html" %}
-            {% endfor %}
-        </div>
-    {% endif %}
-
-    {% if portfolio.experience|length >= 1 %}
-        <div class='container'>
-            <h2 class='text-center w-100'>Experience</h2>
-            {% for document in portfolio.experience %}
-                {% include "document.django-html" %}
-            {% endfor %}
-        </div>
-    {% endif %}
-
-    {% if portfolio.project|length >= 1 %}
-        <div class='container'>
-            <h2 class='text-center w-100'>Projects</h2>
-            {% for document in portfolio.project %}
-                {% include "document.django-html" %}
-            {% endfor %}
-        </div>
-    {% endif %}
-
-    {% if portfolio.award|length >= 1 %}
-        <div class='container'>
-            <h2 class='text-center w-100'>Awards</h2>
-            {% for document in portfolio.award %}
-                {% include "document.django-html" %}
-            {% endfor %}
-        </div>
-    {% endif %}
+    {% for category, documents in portfolio.categories %}
+        {% if documents|length >= 1 %}
+            <div class='container'>
+                <h2 class='text-center w-100'>{{ category.name }}</h2>
+                {% for document in documents %}
+                    {% include "document.django-html" %}
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endfor %}
 {% endblock %}

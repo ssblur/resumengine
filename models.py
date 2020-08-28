@@ -6,9 +6,6 @@ from uuid import uuid1
 # Document visibility enumeration.
 Visibility = models.IntegerChoices('Visibility', 'PUBLIC PROTECTED PRIVATE')
 
-# A document type enumeration, for sorting different varieties of document.
-ProjectType = models.IntegerChoices('ProjectType', 'PROJECT EDUCATION AWARD EXPERIENCE')
-
 
 class Tag(models.Model):
     'A tag which can be attributed to documents, on a many-to-one basis.'
@@ -16,13 +13,22 @@ class Tag(models.Model):
     def __str__(self):
         return self.tag_name
 
+class DocumentCategory(models.Model):
+    '''
+    A category for documents.
+    Replaces the previous enum.
+    '''
+    name = models.CharField(max_length = 32, unique = True)
+    def __str__(self):
+        return self.name
+
 class Document(models.Model):
     '''
     A representation of input Documents.
     These could be portfolio pieces, education, or other media for representing the user.
     '''
     document_name = models.CharField(max_length = 128)
-    document_type = models.IntegerField(choices = ProjectType.choices)
+    document_type = models.ForeignKey(DocumentCategory, null = True, on_delete = models.PROTECT)
     contents = models.TextField()
     icon = models.ImageField(upload_to = 'icons', blank = True, null = True)
     last_updated = models.DateField(auto_now = True)
@@ -49,14 +55,12 @@ class Portfolio(models.Model):
     uuid = models.UUIDField(unique = True, default = uuid1, editable = False)
     def __str__(self):
         return 'Portfolio for ' + str(self.recipient)
-    def education(self):
-        return self.documents.filter(document_type = ProjectType.EDUCATION)
-    def project(self):
-        return self.documents.filter(document_type = ProjectType.PROJECT)
-    def award(self):
-        return self.documents.filter(document_type = ProjectType.AWARD)
-    def experience(self):
-        return self.documents.filter(document_type = ProjectType.EXPERIENCE)
+    def categories(self):
+        cats = DocumentCategory.objects.all()
+        docs = []
+        for category in cats:
+            docs.append(Document.objects.filter(document_type = category))
+        return zip(cats, docs)
 
 class PortfolioAlias(models.Model):
     '''
